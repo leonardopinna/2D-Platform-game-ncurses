@@ -1,5 +1,6 @@
 #include "SuperHit.cpp"
-#include "Weapon.cpp"
+#include "Bullet.cpp"
+#include "GameData.cpp"
 
 class Player {
     private: 
@@ -10,7 +11,7 @@ class Player {
         int level;
         int atk;
         int def; 
-        Weapon weapon; 
+        Bullet bullet; 
         SuperHit special;
         int direction;
 
@@ -20,7 +21,7 @@ class Player {
             this->y = 5;
             this->money = m;
             this->symbol = s;
-            this->weapon = Weapon(0, "Bare hands", 0, 1, 1);
+            this->bullet = fionda;
             this->direction = 1;
         };
 
@@ -46,8 +47,8 @@ class Player {
         int getDef() {
             return this->def;
         };
-        Weapon getWeapon() {
-            return this->weapon;
+        Bullet getBullet() {
+            return this->bullet;
         };
 
         // setters
@@ -72,13 +73,17 @@ class Player {
         void setDef(int d) {
             this->def = d;
         };
-        void setWeapon(Weapon W) {
-            this->weapon = W;
+        void setbullet(Bullet W) {
+            this->bullet = W;
         };        
 
         // actions
         Bullet shoot() {
-            // Creates a new bullet from this player with attack related to curent player attack and weapon
+            // Creates a new bullet from this player with attack related to curent player attack and bullet
+            this->bullet.setX(this->x);
+            this->bullet.setY(this->y); 
+            this->bullet.setDirection(this->direction);
+            return this->bullet;
         };
 
         void moveUp() {

@@ -1,6 +1,5 @@
 #include "SuperHit.cpp"
 #include "Bullet.cpp"
-#include "Weapon.cpp"
 
 class Enemy {
     private: 
@@ -12,14 +11,16 @@ class Enemy {
         int def; 
         int direction;
         int size;
+        Bullet bullet;
 
     public: 
-        Enemy(int m, int sy, int sz) {
+        Enemy(int sy, int sz, Bullet b) {
             this->x = 0;
             this->y = 0;
             this->symbol = sy;
             this->direction = 1;
             this->size = sz;
+            this->bullet = b; 
         };
 
         // Getters
@@ -84,5 +85,30 @@ class Enemy {
             this->direction = 1;
         };
 
+        void move() {
+            int n = rand() % 6 + 1;
+            switch (n)
+            {
+            case 1:
+                moveUp();
+                break;
+            case 2:
+                moveLeft();
+                break;
+            case 3:
+                moveRight();
+                break;
+            case 4:
+                moveDown();
+                break;
+            case 5:
+            case 6:
+                break;
+            
+            default:
+                break;
+            }
+
+        }
 
 };

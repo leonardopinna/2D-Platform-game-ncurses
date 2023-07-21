@@ -14,7 +14,13 @@ class Weapon {
         bool bought;
         bool unlocked;
         int speed;
-        Bullet bullet;
+        char symbol; 
+        int x; 
+        int y; 
+        double damage;
+        string name;
+        int direction;
+        int maxDistance;
         
     public: 
         Weapon() {};
@@ -25,7 +31,6 @@ class Weapon {
             this->speed = s;
             this->bought = false;
             this->unlocked = false;
-            // this->bullet = b;
         };
 
         // getters

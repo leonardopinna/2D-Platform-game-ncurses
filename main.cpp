@@ -1,9 +1,9 @@
-# include <ncurses.h>
+#include <ncurses.h>
 #include "Player.cpp"
+#include "GameCostants.cpp"
+
 using namespace std;
 
-const int HEIGHT = 10;
-const int WIDTH = 50;
 int main() {
         // Initialize ncurses
         initscr();
@@ -14,6 +14,7 @@ int main() {
 
         // initialize player
         Player player = Player(0, '&');
+        vector<Bullet> bulletvector; 
 
 
         // Create a 30x30 window
@@ -46,6 +47,11 @@ int main() {
                 case 'd':
                     if (player.getX() < WIDTH - 2) player.moveRight();
                     break;
+
+                case 'l':
+                    bulletvector.push_back(player.shoot());
+                    break;
+
                 case 'q':
                 case 'Q':
                     break;
