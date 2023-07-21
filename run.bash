@@ -1,0 +1,1 @@
+g++ *.cpp -lncurses -o main && ./main
