@@ -1,1 +1,1 @@
-g++ -std=c++11 *.cpp -lncurses -o main && ./main
+g++ -std=c++11 *.cpp costants/*.cpp -lncurses -o main && ./main

@@ -1,7 +1,7 @@
-#include "GameData.hpp"
+#include "Data.hpp"
 
 // Name = Bullet(int id, string name, char character, double damage, int maxDist, int speed, bool bought, int cost)
-Bullet fionda =     Bullet(0, "Fionda",     'o', 1, 3, 50, true, 0);
+Bullet fionda =     Bullet(0, "Fionda",     'o', 1, 10, 50, true, 0);
 Bullet pistolina =  Bullet(1, "Pistolina",  '-', 2, 5, 50, false, 10);
 Bullet pistola =    Bullet(2, "Pistola",    '-', 5, 6, 50, false, 50);
 Bullet mitra =      Bullet(3, "Mitra",      '=', 10, 8, 50, false, 100);
@@ -13,4 +13,8 @@ Bullet playerWeapons[7] = {fionda, pistolina, pistola, mitra, cannone, laser, ul
 
 Bullet rock = Bullet(0, "Roccia", 'o', 2, 4, 50, true, 0);
 
-Enemy goblin = Enemy('x', 1, rock);
+Enemy goblin = Enemy('x', 1, 1, 5, rock);
+
+Wall baseWall = Wall(1, 'H');
+
+Door door = Door('@');

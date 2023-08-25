@@ -1,9 +1,6 @@
 #ifndef BULLET_HPP
 #define BULLET_HPP
 
-#include <string>
-using namespace std;
-
 class Bullet {
     private:
         int id;
@@ -11,20 +8,20 @@ class Bullet {
         int x; 
         int y; 
         double damage;
-        string name;
+        const char* name;
         int direction;
         int maxDistance;
         int cost;
         bool bought;
         int speed;
 
-    public: 
-        Bullet();
-        Bullet(int id, string n, char s, double d, int m, int sp, bool b, int c);
+    public:
+        Bullet(); 
+        Bullet(int id, const char* n, char s, double d, int m, int sp, bool b, int c);
 
         // getters
         int getId();        
-        string getName();        
+        const char* getName();        
         char getSymbol();
         int getX();        
         int getY(); 
@@ -48,4 +45,4 @@ class Bullet {
         void move();
 };
 
-#endif // BULLET_HPP
+#endif

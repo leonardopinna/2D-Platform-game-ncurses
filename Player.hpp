@@ -3,13 +3,14 @@
 
 #include "SuperHit.hpp"
 #include "Bullet.hpp"
-#include "GameData.hpp"
+#include "Data.hpp"
 
 class Player {
     private: 
         int x; 
         int y; 
         int money;
+        int life;
         char symbol;
         int level;
         int atk;
@@ -24,7 +25,8 @@ class Player {
         // Getters
         int getX() const;        
         int getY() const;        
-        int getMoney();        
+        int getMoney(); 
+        int getLife();        
         char getSymbol();        
         int getLevel();        
         int getAtk();        
@@ -34,12 +36,14 @@ class Player {
         // setters
         void setX(int xPos);        
         void setY(int yPos);        
-        void setMoney(int amount);    
+        void setMoney(int amount);
+        void setMaxLife();  
+        void reduceLife(int damage);   
         void setSymbol(char s);        
         void setLevel(int l);        
         void setAtk(int a);        
         void setDef(int d);
-        void setbullet(Bullet W);        
+        void setBullet(Bullet W);        
 
         // actions
         Bullet shoot();
@@ -52,7 +56,9 @@ class Player {
         void levelUp();
 
         void addMoney(int amount);            
-        void removeMoney(int amount);     
+        void removeMoney(int amount); 
+
+    
 
 };
 

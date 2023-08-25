@@ -1,13 +1,13 @@
 #include "Bullet.hpp"
 
-Bullet::Bullet() {};
-Bullet::Bullet(int id, string n, char s, double d, int m, int sp, bool b, int c) : id(id), name(n), symbol(s), damage(d), maxDistance(m), speed(s), bought(b), cost(c) {};
+Bullet::Bullet() {}; 
+Bullet::Bullet(int id, const char* n, char s, double d, int m, int sp, bool b, int c) : id(id), name(n), symbol(s), damage(d), maxDistance(m), speed(s), bought(b), cost(c) {};
 
 // getters
 int Bullet::getId() {
     return this->id;
 };        
-string Bullet::getName() {
+const char* Bullet::getName() {
     return this->name;
 };
 int Bullet::getX() {
@@ -65,22 +65,23 @@ void Bullet::setDirection(int dir) {
 // Actions
 void Bullet::move() {
     this->maxDistance--;
-    switch (direction)
-    {
-    case 0: // right
-        this->x = this->x + 1;
-        break;
-    case 1: // down
-        this->y = this->y + 1;
-        break;
-    case 2: // left
-        this->x = this->x - 1;
-        break;
-    case 3: // up
-        this->y = this->y - 1;
-        break;
-    
-    default:
-        break;
+    switch (this->direction) {
+        case 0: // right
+            this->x = this->x + 1;
+            break;
+        case 1: // down
+            this->y = this->y + 1;
+            break;
+        case 2: // left
+            this->x = this->x - 1;
+            break;
+        case 3: // up
+            this->y = this->y - 1;
+            break;
+        
+        default:
+            break;
     }
 }
+
+

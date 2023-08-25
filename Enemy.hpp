@@ -2,13 +2,16 @@
 #define ENEMY_HPP
 
 #include "Bullet.hpp"
+#include "costants/WinSize.hpp"
 
 class Enemy {
     private: 
         int x; 
         int y; 
         char symbol;
+        int life; 
         int level;
+        int money;
         int atk;
         int def; 
         int direction;
@@ -16,19 +19,23 @@ class Enemy {
         Bullet bullet;
 
     public: 
-        Enemy(char symb, int sz, Bullet b);
+        Enemy(char symb, int l, int m, int sz, Bullet b);
 
         // Getters
         int getX();        
-        int getY();             
+        int getY();
+        int getLife();
+        int getMoney();             
         char getSymbol();        
         int getLevel();        
         int getAtk();        
         int getDef();
+        Bullet getBullet();
 
         // setters
         void setX(int xPos);        
-        void setY(int yPos);            
+        void setY(int yPos); 
+        void reduceLife(int damage);          
         void setSymbol(char s);        
         void setLevel(int l);        
         void setAtk(int a);        

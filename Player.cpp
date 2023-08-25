@@ -4,6 +4,7 @@ Player::Player(int m, int s) {
             this->x = 5;
             this->y = 5;
             this->money = m;
+            this->life = 1;
             this->symbol = s;
             this->bullet = fionda;
             this->direction = 1;
@@ -18,6 +19,9 @@ int Player::getY() const {
 };        
 int Player::getMoney() {
     return this->money;
+};
+int Player::getLife() {
+    return this->life;
 };        
 char Player::getSymbol() {
     return this->symbol;
@@ -44,6 +48,12 @@ void Player::setY(int yPos) {
 };        
 void Player::setMoney(int amount) {
     this->money = amount;
+};
+void Player::setMaxLife() {
+    this->life = 5;
+}
+void Player::reduceLife(int damage) {
+    this->life -= damage;
 };    
 void Player::setSymbol(char s) {
     this->symbol = s;
@@ -57,33 +67,51 @@ void Player::setAtk(int a) {
 void Player::setDef(int d) {
     this->def = d;
 };
-void Player::setbullet(Bullet W) {
+void Player::setBullet(Bullet W) {
     this->bullet = W;
 };        
 
 // actions
 Bullet Player::shoot() {
     // Creates a new bullet from this player with attack related to curent player attack and bullet
-    this->bullet.setX(this->x);
-    this->bullet.setY(this->y); 
     this->bullet.setDirection(this->direction);
+    switch (this->bullet.getDirection()) {
+        case 0:
+            this->bullet.setX(this->x + 1);
+            this->bullet.setY(this->y);
+            break;
+        case 1:
+            this->bullet.setX(this->x);
+            this->bullet.setY(this->y + 1);
+            break;
+        case 2:
+            this->bullet.setX(this->x - 1);
+            this->bullet.setY(this->y);
+            break;
+        case 3:
+            this->bullet.setX(this->x);
+            this->bullet.setY(this->y - 1);
+            break;
+        default:
+            break;
+    }
     return this->bullet;
 };
 
 void Player::moveUp() {
-    this->y--;
+    if (this->y > 1) this->y--;
     this->direction = 3;
 };        
 void Player::moveLeft() {
-    this->x--;
+    if (this->x > 1) this->x--;
     this->direction = 2;
 };        
 void Player::moveRight() {
-    this->x++;
+    if (this->x < WIDTH - 2) this->x++;
     this->direction = 0;
 };        
 void Player::moveDown() {
-    this->y++;
+    if (this->y < HEIGHT - 2) this->y++;
     this->direction = 1;
 };
 
