@@ -21,7 +21,10 @@ class Wall {
         void setX(int xPos);        
         void setY(int yPos);        
         void setLife(int amount);    
-        void setSymbol(char s);          
+        void setSymbol(char s);  
+
+        // actions
+        void reduceLife(int amount);        
 
 };
 

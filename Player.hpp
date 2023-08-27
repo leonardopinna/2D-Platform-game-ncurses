@@ -1,9 +1,9 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include "SuperHit.hpp"
 #include "Bullet.hpp"
 #include "Data.hpp"
+#include "costants/Parameters.hpp"
 
 class Player {
     private: 
@@ -11,12 +11,12 @@ class Player {
         int y; 
         int money;
         int life;
+        int maxLife;
         char symbol;
         int level;
         int atk;
         int def; 
-        Bullet bullet; 
-        SuperHit special;
+        Bullet * bullet; 
         int direction;
 
     public: 
@@ -26,24 +26,27 @@ class Player {
         int getX() const;        
         int getY() const;        
         int getMoney(); 
-        int getLife();        
+        int getLife(); 
+        int getMaxLife();       
         char getSymbol();        
         int getLevel();        
         int getAtk();        
         int getDef();
-        Bullet getBullet();
+        Bullet * getBullet();
 
         // setters
         void setX(int xPos);        
         void setY(int yPos);        
         void setMoney(int amount);
+        void loadMaxLife(int amount); 
         void setMaxLife();  
         void reduceLife(int damage);   
         void setSymbol(char s);        
         void setLevel(int l);        
         void setAtk(int a);        
         void setDef(int d);
-        void setBullet(Bullet W);        
+        void setDirection(int d);
+        void setBullet(Bullet * W);        
 
         // actions
         Bullet shoot();
@@ -55,10 +58,12 @@ class Player {
 
         void levelUp();
 
+        void addMaxLife(int amount);
+
         void addMoney(int amount);            
         void removeMoney(int amount); 
 
-    
+        void removeWeapon();
 
 };
 

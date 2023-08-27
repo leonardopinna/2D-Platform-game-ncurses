@@ -2,6 +2,8 @@
 #define GAME_HPP
 
 #include <ncurses.h>
+#include <fstream>
+#include <string>
 #include <vector>
 
 #include "Level.hpp"
@@ -21,7 +23,10 @@ enum class GameState {
 class Game {
     public: 
         GameState currentState = GameState::MainMenu;
-        Player player = Player(0, '&');
+        Player player = Player(1000, '&');
+
+        int saveMessageTimer = 0;
+        int loadMessageTimer = 0;
 
         bool gameStarted = false;
         bool running; 
@@ -43,6 +48,7 @@ class Game {
 
         void loadGame();
         void saveGame();
+
         void stopGame(); 
 
         void initializeGame();
@@ -60,6 +66,10 @@ class Game {
         void update();
 
         void render();
+
+        void drawPrompt();
+
+        void drawStats(); 
 
 };
 

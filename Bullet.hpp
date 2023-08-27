@@ -14,10 +14,11 @@ class Bullet {
         int cost;
         bool bought;
         int speed;
+        bool equipped; 
 
     public:
         Bullet(); 
-        Bullet(int id, const char* n, char s, double d, int m, int sp, bool b, int c);
+        Bullet(int id, const char* n, char s, double d, int m, bool b, int c, bool eq);
 
         // getters
         int getId();        
@@ -31,6 +32,7 @@ class Bullet {
         bool isBought();         
         int getMaxDistance();
         int getDirection();
+        bool isEquipped(); 
 
         // setters            
         void setCost(int c);              
@@ -39,7 +41,8 @@ class Bullet {
         void setIsBought(bool b); 
         void setX(int xPos);        
         void setY(int yPos);
-        void setDirection(int dir);     
+        void setDirection(int dir);
+        void setEquipped(bool b);    
 
         // Actions
         void move();

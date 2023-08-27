@@ -22,11 +22,16 @@ void Wall::setX(int xPos) {
 };        
 void Wall::setY(int yPos) {
     this->y = yPos;
-};;        
+};        
 void Wall::setLife(int amount) {
     this->life = amount;
-};;    
+};    
 void Wall::setSymbol(char s) {
     this->symbol = s;
-};;          
+};   
+
+// actions 
+void Wall::reduceLife(int amount) {
+    this->life -= amount; 
+};
 

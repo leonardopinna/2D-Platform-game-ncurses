@@ -2,7 +2,7 @@
 #define ENEMY_HPP
 
 #include "Bullet.hpp"
-#include "costants/WinSize.hpp"
+#include "costants/Parameters.hpp"
 
 class Enemy {
     private: 
@@ -16,10 +16,10 @@ class Enemy {
         int def; 
         int direction;
         int size;
-        Bullet bullet;
+        Bullet * bullet;
 
     public: 
-        Enemy(char symb, int l, int m, int sz, Bullet b);
+        Enemy(char symb, int l, int m, Bullet * b);
 
         // Getters
         int getX();        
@@ -30,7 +30,7 @@ class Enemy {
         int getLevel();        
         int getAtk();        
         int getDef();
-        Bullet getBullet();
+        Bullet * getBullet();
 
         // setters
         void setX(int xPos);        

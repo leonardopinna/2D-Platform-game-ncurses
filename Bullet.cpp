@@ -1,7 +1,7 @@
 #include "Bullet.hpp"
 
 Bullet::Bullet() {}; 
-Bullet::Bullet(int id, const char* n, char s, double d, int m, int sp, bool b, int c) : id(id), name(n), symbol(s), damage(d), maxDistance(m), speed(s), bought(b), cost(c) {};
+Bullet::Bullet(int id, const char* n, char s, double d, int m, bool b, int c, bool eq) : id(id), name(n), symbol(s), damage(d), maxDistance(m), speed(s), bought(b), cost(c), equipped(eq) {};
 
 // getters
 int Bullet::getId() {
@@ -25,9 +25,6 @@ int Bullet::getCost() {
 int Bullet::getDamage() {
     return this->damage;
 };        
-int Bullet::getSpeed() {
-    return this->speed;
-};
 bool Bullet::isBought() {
     return this->bought;
 }        
@@ -37,6 +34,9 @@ int Bullet::getMaxDistance() {
 
 int Bullet::getDirection() {
     return this->direction;
+}
+bool Bullet::isEquipped() {
+    return this->equipped;
 }
 
 // setters            
@@ -60,7 +60,10 @@ void Bullet::setY(int yPos) {
 };
 void Bullet::setDirection(int dir) {
     this->direction = dir;
-}       
+} 
+void Bullet::setEquipped(bool b) {
+    this->equipped = b;
+}      
 
 // Actions
 void Bullet::move() {

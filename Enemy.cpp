@@ -2,14 +2,11 @@
 
 #include "Enemy.hpp"
 
-Enemy::Enemy(char symb, int l, int m, int sz, Bullet b) {
-    this->x = 0;
-    this->y = 0;
+Enemy::Enemy(char symb, int l, int m, Bullet * b) {
     this->symbol = symb;
     this->money = m;
     this->life = l;
     this->direction = 1;
-    this->size = sz;
     this->bullet = b; 
 };
 
@@ -38,7 +35,7 @@ int Enemy::getAtk() {
 int Enemy::getDef() {
     return this->def;
 };
-Bullet Enemy::getBullet() {
+Bullet * Enemy::getBullet() {
     return this->bullet;
 }
 
@@ -68,28 +65,28 @@ void Enemy::setDef(int d) {
 // actions
 Bullet Enemy::shoot() {
     // Creates a new bullet from this Enemy with attack related to curent Enemy attack and weapon
-    this->bullet.setDirection(this->direction);
-    switch (this->bullet.getDirection()) {
+    this->bullet->setDirection(this->direction);
+    switch (this->bullet->getDirection()) {
         case 0:
-            this->bullet.setX(this->x + 1);
-            this->bullet.setY(this->y);
+            this->bullet->setX(this->x + 1);
+            this->bullet->setY(this->y);
             break;
         case 1:
-            this->bullet.setX(this->x);
-            this->bullet.setY(this->y + 1);
+            this->bullet->setX(this->x);
+            this->bullet->setY(this->y + 1);
             break;
         case 2:
-            this->bullet.setX(this->x - 1);
-            this->bullet.setY(this->y);
+            this->bullet->setX(this->x - 1);
+            this->bullet->setY(this->y);
             break;
         case 3:
-            this->bullet.setX(this->x);
-            this->bullet.setY(this->y - 1);
+            this->bullet->setX(this->x);
+            this->bullet->setY(this->y - 1);
             break;
         default:
             break;
     }
-    return this->bullet;
+    return *this->bullet;
 };
 
 void Enemy::moveUp() {
@@ -108,24 +105,3 @@ void Enemy::moveDown() {
     if (this->y < HEIGHT - 2) this->y++;
     this->direction = 1;
 };
-
-void Enemy::move() {
-    int n = rand() % 15 + 1;
-    switch (n) {
-        case 1:
-            moveUp();
-            break;
-        case 2:
-            moveLeft();
-            break;
-        case 3:
-            moveRight();
-            break;
-        case 4:
-            moveDown();
-            break;
-        default:
-            break;
-    }
-
-}

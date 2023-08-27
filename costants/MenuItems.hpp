@@ -1,8 +1,6 @@
 #ifndef MENU_ITEMS_HPP
 #define MENU_ITEMS_HPP
 
-#include "../Data.hpp"
-
 extern const char* mainMenuItems[];
 extern const char* gameOverItems[];
 extern const char* marketItems[];
