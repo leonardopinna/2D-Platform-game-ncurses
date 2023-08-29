@@ -8,7 +8,7 @@
 #include "Wall.hpp"
 #include "Door.hpp"
 #include "Player.hpp"
-#include "costants/Parameters.hpp"
+#include "../Parameters.hpp"
 
 using namespace std;
 
@@ -25,6 +25,7 @@ class Level {
         vector<Wall> moneyVector;
         int center_y;
         int center_x;
+        Player * player = new Player('&', 10, Direction::RIGHT, &fionda);
     
     template <typename T>
     bool outOfBounds(T& t) {
@@ -36,11 +37,11 @@ class Level {
         return a.getX() == b.getX() && a.getY() == b.getY();
     }
 
-    Level() {}
-    Level(int level) {
+    Level() {};
+    Level(int level) { 
         vector<int> enemyQ(enemies.size(), 0);
 
-        level++;
+        level = level;
 
         // Generate prev door
         this->doorVector.push_back(door);
@@ -82,7 +83,7 @@ class Level {
     
         // Generates enemies
         if (level / 10 + 1 < enemies.size()) {
-            enemyQ[level / 10] = level / 10 + level % 10;
+            enemyQ[level / 10] = level / 10 + level % 10 + 1;
             enemyQ[level / 10 + 1] = (level - (level % 10) * 10) % 5;
         } else {
             enemyQ[enemies.size() - 1] = level - 25 + 1;
@@ -97,33 +98,10 @@ class Level {
                 } while (!isFreePositionToDraw(XX, YY));
 
                 this->enemyVector.push_back(enemies[i]);
-                this->enemyVector[i*j + j].setX(XX);
-                this->enemyVector[i*j + j].setY(YY);
+                this->enemyVector[enemyVector.size()-1].setX(XX);
+                this->enemyVector[enemyVector.size()-1].setY(YY);
             }
         }
-    }
-
-    void draw(WINDOW * wdw, Player p) {
-        // Draw the '&' in the center of the window
-            for (Bullet b : playerBulletVector) {
-                mvwaddch(wdw, b.getY(), b.getX(), b.getSymbol());
-            }
-            for (Bullet b : enemyBulletVector) {
-                mvwaddch(wdw, b.getY(), b.getX(), b.getSymbol());
-            }
-            for (Wall w : wallVector) {
-                mvwaddch(wdw, w.getY(), w.getX(), w.getSymbol());
-            }
-            for (Wall w : moneyVector) {
-                mvwaddch(wdw, w.getY(), w.getX(), w.getSymbol());
-            }
-            for (Door d : doorVector) {
-                mvwaddch(wdw, d.getY(), d.getX(), d.getSymbol());
-            }
-            for (Enemy e : enemyVector) {
-                mvwaddch(wdw, e.getY(), e.getX(), e.getSymbol());
-            }
-            mvwaddch(wdw, p.getY(), p.getX(), p.getSymbol());
     }
 
     bool isFreePositionToDraw(int x, int y) {
@@ -136,14 +114,20 @@ class Level {
         for (Enemy w : enemyVector) {
             if (w.getX() == x && w.getY() == y) return false; 
         }
-        return true;
+        return isValidPosition(x, y);
     }
+
+    bool isValidPosition(int x, int y) {
+        return (x > 0 && x < WIDTH - 1 && y > 0 && y < HEIGHT - 1);
+    }
+
     bool isFreePositionToGo(int x, int y) {
         for (Wall w : wallVector) {
             if (w.getX() == x && w.getY() == y) return false; 
         }
-        return true;
+        return isValidPosition(x,y);
     }
+    
 };
 
 #endif

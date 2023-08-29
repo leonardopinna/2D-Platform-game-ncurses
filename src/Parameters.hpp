@@ -1,7 +1,7 @@
 #ifndef PARAMETER_HPP
 #define PARAMETER_HPP
 
-const int HEIGHT = 10;
+const int HEIGHT = 20;
 const int WIDTH = 50;
 
 const double bulletSpeed = 0.1;

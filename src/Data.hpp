@@ -4,10 +4,10 @@
 #include <vector>
 using namespace std;
 
-#include "Bullet.hpp"
-#include "Enemy.hpp"
-#include "Wall.hpp"
-#include "Door.hpp"
+#include "gameElements/Bullet.hpp"
+#include "gameElements/Enemy.hpp"
+#include "gameElements/Wall.hpp"
+#include "gameElements/Door.hpp"
 
 // Player Weapons
 extern Bullet fionda;

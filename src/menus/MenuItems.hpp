@@ -1,13 +1,15 @@
 #ifndef MENU_ITEMS_HPP
 #define MENU_ITEMS_HPP
 
-extern const char* mainMenuItems[];
-extern const char* gameOverItems[];
-extern const char* marketItems[];
+extern char* mainMenuItems[];
+extern char* gameOverItems[];
+extern char* homeItems[];
+extern char* marketItems[]; 
 
 extern int numMainMenuItems;
 extern int numGameOverItems;
-extern int numMarketItems;
+extern int numHomeItems;
+extern int numMarketItems; 
 
 extern int numWeapons;
 

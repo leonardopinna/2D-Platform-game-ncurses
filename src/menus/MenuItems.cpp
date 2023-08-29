@@ -1,16 +1,16 @@
 #include "MenuItems.hpp"
 
-const char* mainMenuItems[] = {
+char* mainMenuItems[] = {
     "Nuovo Gioco",
     "Carica Partita",
     "Esci"
 };
-const char* gameOverItems[] = {
+char* gameOverItems[] = {
     "Nuova Partita",
-    "Mercato", 
+    "Menu principale", 
     "Esci"
 };
-const char* marketItems[] = {
+char* homeItems[] = {
     "Nuova Partita",
     "Negozio", 
     "Salva Partita",
@@ -19,5 +19,5 @@ const char* marketItems[] = {
 
 int numMainMenuItems = sizeof(mainMenuItems) / sizeof(mainMenuItems[0]);
 int numGameOverItems = sizeof(gameOverItems) / sizeof(gameOverItems[0]);
-int numMarketItems = sizeof(marketItems) / sizeof(marketItems[0]);
+int numHomeItems = sizeof(homeItems) / sizeof(homeItems[0]);
 

@@ -1,14 +1,14 @@
-#ifndef DOOR_HPP
-#define DOOR_HPP
+#ifndef ELEMENT_HPP
+#define ELEMENT_HPP
 
-class Door {
+class Element {
     private: 
         int x; 
         int y; 
         char symbol;
 
     public: 
-        Door(char s);
+        Element(char s);
 
         // Getters
         int getX() const;
