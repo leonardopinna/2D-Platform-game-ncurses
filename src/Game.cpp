@@ -1,7 +1,5 @@
 #include "Game.hpp"
 
-using namespace std;
-
 Game::Game() {
     playerManager = new PlayerManager();
     
@@ -27,7 +25,7 @@ Game::Game() {
         "", 
         playerManager); 
     
-    levelManager = new LevelManager(playerManager);
+    levelMenu = new LevelMenu(playerManager);
     
     marketMenu = new MarketMenu(titleMarket, errorMarket, playerManager); 
     
@@ -55,11 +53,11 @@ void Game::run() {
                 break;
 
             case GameState::Playing:
-                currentState = levelManager->run(currentState, win);
+                currentState = levelMenu->run(currentState, win);
                 break;
 
             case GameState::GameOver:
-                levelManager->gameStarted = false; 
+                levelMenu->gameStarted = false; 
                 currentState = gameOverMenu->run(currentState); 
                 break;
             case GameState::LoadGame:
@@ -142,6 +140,3 @@ void Game::initilizeScreen() {
     keypad(win, true);
     running = true;
 };
-
-
-

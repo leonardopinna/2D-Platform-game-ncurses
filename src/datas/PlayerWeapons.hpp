@@ -7,6 +7,7 @@ using namespace std;
 #include "../elements/Bullet.hpp"
 
 // Player Weapons
+extern Bullet sasso;
 extern Bullet fionda;
 extern Bullet pistolina;
 extern Bullet pistola ;

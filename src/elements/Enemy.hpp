@@ -10,6 +10,9 @@ class Enemy : public Shooter, public Collectible {
         int moveProb;
     public: 
         Enemy(char ch, int life, int value, Bullet * bullet, int shootProb, int moveProb);
+        
+        int getShootProb();
+        int getMoveProb();  
 };
 
 #endif

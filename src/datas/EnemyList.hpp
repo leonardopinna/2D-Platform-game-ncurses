@@ -9,6 +9,7 @@ using namespace std;
 #include "../elements/Enemy.hpp"
 
 // Enemies
+extern Enemy lizard;
 extern Enemy goblin;
 extern Enemy greatGoblin;
 extern Enemy ogre;

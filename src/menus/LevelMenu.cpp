@@ -1,19 +1,15 @@
-#include "LevelsManager.hpp"
+#include "LevelMenu.hpp"
 
-LevelManager:: LevelManager(PlayerManager * playerManager) : Menu("", {}, {}, "", playerManager) {
-    this->player = new Player('&', playerManager->getMaxLife(), Direction::RIGHT, playerManager->getWeapon());
-    this->level = 0;
+LevelMenu:: LevelMenu(PlayerManager * playerManager) : Menu("", {}, {}, "", playerManager) {
+    this->player = new Player('&', playerManager->getMaxLife(), Direction::RIGHT, playerManager->getWeapon()); 
     this->gameStarted = false; 
 }
 
-void LevelManager::initializeGame() {
+void LevelMenu::initializeGame() {
 
-    level = 0;
-    if (levelVector.size() > 0) {
-        levelVector[0] = new Level(level + 1, availableLevels[rand() % availableLevels.size()]);
-    } else {
-        levelVector.push_back(new Level(level + 1, availableLevels[rand() % availableLevels.size()]));
-    }
+    this->level = 0;
+    this->startingLevel = getPlayerManager()->getMaxLife() / startingLevelIncreaseDelta;
+    levelVector.push_back(new Level(startingLevel + 1, availableLevels[rand() % availableLevels.size()]));
         
     currentLevel = levelVector[0];
         
@@ -26,15 +22,15 @@ void LevelManager::initializeGame() {
     gameStarted = true;
 }
 
-GameState LevelManager::run(GameState gs, WINDOW * wdw) {
+GameState LevelMenu::run(GameState gs, WINDOW * wdw) {
     this->setState(gs);
-    LevelManager::handleInput(); 
+    LevelMenu::handleInput(); 
     update(); 
     draw(wdw); 
     return this->getState();
 }
 
-void LevelManager::gameOver() {
+void LevelMenu::gameOver() {
     for (Level* L : levelVector) {
         L->enemyVector.clear();
         L->enemyBulletVector.clear();
@@ -49,7 +45,7 @@ void LevelManager::gameOver() {
     setState(GameState::GameOver);
 }; 
 
-void LevelManager::handleInput() {
+void LevelMenu::handleInput() {
     switch (getch()) {
             case 'w':
                 if (currentLevel->isFreePositionToGo(player->getX(), player->getY() - 1)) player->moveUp(); else player->setDirection(Direction::UP);
@@ -81,7 +77,7 @@ void LevelManager::handleInput() {
         }
     }
 
-void LevelManager::update() {
+void LevelMenu::update() {
     if (!gameStarted) {
         initializeGame();
     }
@@ -90,8 +86,8 @@ void LevelManager::update() {
     startTime = currentTime;
 
     // Update bullet and enemy movement
-    timeSinceLastBulletUpdate += elapsedTime.count();
-    while (timeSinceLastBulletUpdate >= bulletSpeed) {
+    deltaTime += elapsedTime.count();
+    while (deltaTime >= gameSpeed) {
         for (auto it = currentLevel->playerBulletVector.begin() ; it != currentLevel->playerBulletVector.end(); ) {
             it->move();
             if (outOfBounds(*it) || it->getMaxDistance()==0) {
@@ -109,7 +105,7 @@ void LevelManager::update() {
             }
         }
         for (auto it = currentLevel->enemyVector.begin() ; it != currentLevel->enemyVector.end(); it++) {
-            int n = rand() % 15 + 1;
+            int n = rand() % it->getMoveProb() + 1;
             switch (n) {
                 case 1:
                     if (currentLevel->isFreePositionToGo(it->getX(), it->getY() - 1)) it->moveUp();
@@ -126,13 +122,13 @@ void LevelManager::update() {
                 default:
                     break;
             }
-            if (rand() % 10 == 0) currentLevel->enemyBulletVector.push_back(it->shoot());
+            if (rand() % it->getShootProb() == 0) currentLevel->enemyBulletVector.push_back(it->shoot());
         }
 
-        timeSinceLastBulletUpdate -= bulletSpeed;
+        deltaTime -= gameSpeed;
     }
 
-    // CHECK COLLISION OF ELEMENTS
+    // CHECK COLLISION OF PLAYER WITH ELEMENTS
     // Enemy bullet - Player collision
     for (auto b = currentLevel->enemyBulletVector.begin() ; b != currentLevel->enemyBulletVector.end(); ) {
         bool collided = false;
@@ -146,12 +142,29 @@ void LevelManager::update() {
             ++b;
         }
     }
+
     // Enemy - Player collision
     for (auto b = currentLevel->enemyVector.begin() ; b != currentLevel->enemyVector.end(); b++) {
         if (collision(*b, *player)) {
             player->reduceLife(b->getBullet()->getDamage());                         
         }
     }
+
+    // Player - Money Bonus collision
+    for (auto b = currentLevel->moneyVector.begin() ; b != currentLevel->moneyVector.end();) {
+        bool collided = false;
+        if (collision(*b, *player)) {
+            getPlayerManager()->addMoney(moneyBonus);
+            collided = true;                        
+        }
+        if (collided) {
+            b = currentLevel->moneyVector.erase(b);
+        } else {
+            ++b;
+        }
+    } 
+
+    // CHECK COLLISION OF PLAYER BULLETS WITH ELEMENTS
     // Player bullet - Enemies collision
     for (auto b = currentLevel->playerBulletVector.begin() ; b != currentLevel->playerBulletVector.end(); ) {
         bool collided = false;
@@ -199,21 +212,8 @@ void LevelManager::update() {
             ++b;
         }
     }
-
-    // Player - Money Bonus collision
-    for (auto b = currentLevel->moneyVector.begin() ; b != currentLevel->moneyVector.end();) {
-        bool collided = false;
-        if (collision(*b, *player)) {
-            getPlayerManager()->addMoney(moneyBonus);
-            collided = true;                        
-        }
-        if (collided) {
-            b = currentLevel->moneyVector.erase(b);
-        } else {
-            ++b;
-        }
-    } 
     
+    // OTHER COLLISIONS
     // Enemy bullet - Wall collision (No wall damage)
     for (auto b = currentLevel->enemyBulletVector.begin() ; b != currentLevel->enemyBulletVector.end(); ) {
         bool collided = false;
@@ -231,13 +231,13 @@ void LevelManager::update() {
             ++b;
         }
     }
-    // TO DO: CREARE CLASSE GAME MANAGER CHE GESTISCE LA LOGICA DEI LIVELLI DI GIOCO E SEPARARLA DALL'INPUT HANDLING E DAL RENDERING DEL MENU
-
+    
     // Change Level trigger
     if (collision(*player, currentLevel->doorVector[0])) {
         
         if (level != 0) {
             level--;
+            startingLevel--;
                 currentLevel = levelVector[level];
             player->setX(currentLevel->doorVector[1].getX()-1);
             player->setY(currentLevel->doorVector[1].getY());
@@ -245,9 +245,9 @@ void LevelManager::update() {
     }
 
     if (collision(*player, currentLevel->doorVector[1])) {
-        level++;
+        level++; startingLevel++;
         if (level == levelVector.size()) {
-            levelVector.push_back(new Level(level + 1, availableLevels[rand() % availableLevels.size()]));
+            levelVector.push_back(new Level(startingLevel + 1, availableLevels[rand() % availableLevels.size()]));
         }
         currentLevel = levelVector[level];
         player->setX(currentLevel->doorVector[0].getX()+1);
@@ -261,7 +261,7 @@ void LevelManager::update() {
     }
 }
 
-void LevelManager::draw(WINDOW * wdw) {
+void LevelMenu::draw(WINDOW * wdw) {
         for (Bullet b : currentLevel->playerBulletVector) {
             mvwaddch(wdw, b.getY(), b.getX(), b.getSymbol());
         }
@@ -271,7 +271,7 @@ void LevelManager::draw(WINDOW * wdw) {
         for (Wall w : currentLevel->wallVector) {
             mvwaddch(wdw, w.getY(), w.getX(), w.getSymbol());
         }
-        for (Wall w : currentLevel->moneyVector) {
+        for (MoneyBonus w : currentLevel->moneyVector) {
             mvwaddch(wdw, w.getY(), w.getX(), w.getSymbol());
         }
         for (Door d : currentLevel->doorVector) {

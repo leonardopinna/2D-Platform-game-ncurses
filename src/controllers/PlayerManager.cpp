@@ -1,6 +1,8 @@
 #include "PlayerManager.hpp"
 
-PlayerManager::PlayerManager() : money(0), maxLife(10), weapon(&fionda) {};
+PlayerManager::PlayerManager() : money(0), maxLife(10), weapon(&sasso) {
+    this->weapon->setEquipped(true);
+};
 
 // getters
 int PlayerManager::getMoney() {

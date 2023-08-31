@@ -6,7 +6,16 @@ const int HEIGHT = 10;
 const int WIDTH = 40;
 
 // Game Speed
-const double bulletSpeed = 0.1;
+const double gameSpeed = 0.1;
+
+// Max enemies per type on screen
+const int maxEnemiesPerType = 5; 
+
+// Max money bonus per level
+const int maxMoneyBonusElementsPerLevel = 5; 
+
+// Starting Level Increment every this maxLife
+const int startingLevelIncreaseDelta = 100;
 
 // Message frames before desappearing
 const int messageTime = 150;

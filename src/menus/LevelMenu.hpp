@@ -1,5 +1,5 @@
-#ifndef LEVEL_MANAGER_HPP
-#define LEVEL_MANAGER_HPP 
+#ifndef LEVEL_MENU_HPP
+#define LEVEL_MENU_HPP 
 
 #include "../elements/Player.hpp"
 #include "../elements/Level.hpp"
@@ -8,9 +8,9 @@
 
 #include "Menu.hpp"
 
-class LevelManager : public Menu {
+class LevelMenu : public Menu {
     private:
-        double timeSinceLastBulletUpdate;
+        double deltaTime;
         chrono::time_point<chrono::steady_clock> currentTime;
         chrono::time_point<chrono::steady_clock> startTime;
         chrono::duration<double> elapsedTime;
@@ -28,27 +28,26 @@ class LevelManager : public Menu {
         vector<Level*> levelVector;
         Level* currentLevel;
         int level;
+        int startingLevel; 
         
         Player * player; 
 
         bool gameStarted;  
 
-    LevelManager(PlayerManager * playerManager);
+        LevelMenu(PlayerManager * playerManager);
 
-    void initializeGame();
+        void initializeGame();
 
-    GameState run(GameState gs, WINDOW * wdw); 
+        GameState run(GameState gs, WINDOW * wdw); 
 
-    void gameOver();
+        void gameOver();
 
-    void handleInput();
-    
-    void update();
+        void handleInput();
+        
+        void update();
 
-    void draw(WINDOW * wdw);
+        void draw(WINDOW * wdw);
 
-    void render();
-    
 };
 
 #endif

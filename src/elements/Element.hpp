@@ -1,6 +1,8 @@
 #ifndef ELEMENT_HPP
 #define ELEMENT_HPP
 
+#include "../datas/Parameters.hpp"
+
 class Element {
     private: 
         int x; 
@@ -18,8 +20,12 @@ class Element {
         // setters
         void setX(int xPos);        
         void setY(int yPos);        
-        void setSymbol(char s);          
+        void setSymbol(char s);   
 
+        // bool 
+        bool outOfBounds(Element t);
+
+        bool collision(Element a, Element b);
 };
 
 #endif

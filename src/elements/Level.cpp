@@ -22,9 +22,8 @@ Level::Level(int level, vector<vector<int>> s): structure(s) {
     }  
 
     // Generate money icon '$'
-    for (int i = 0; i < 3 - level / 10; i++) {
-        int XX, YY;
-
+    for (int i = 0; i < maxMoneyBonusElementsPerLevel; i++) {
+        
         vector<int> coords = findFreePosition(1, WIDTH - 2, 1, HEIGHT - 2);
 
         this->moneyVector.push_back(moneyWall);
@@ -33,12 +32,13 @@ Level::Level(int level, vector<vector<int>> s): structure(s) {
     }
 
     // Generates enemies
-    enemyQ[0] = min(10, level);
-    enemyQ[1] = min(5, level/2);
-    enemyQ[2] = min(5, level/3);
-    enemyQ[3] = min(5, level/5);
-    enemyQ[4] = min(5, level/7);
-    enemyQ[5] = min(5, level/11);
+    enemyQ[0] = max(0, min(maxEnemiesPerType, level));
+    enemyQ[1] = max(0, min(maxEnemiesPerType, level - 5));
+    enemyQ[2] = max(0, min(maxEnemiesPerType, (level-10))/2 + 1);
+    enemyQ[3] = max(0, min(maxEnemiesPerType, (level-20))/2 + 1);
+    enemyQ[4] = max(0, min(maxEnemiesPerType, (level-30))/2 + 1);
+    enemyQ[5] = max(0, min(maxEnemiesPerType, (level-40))/2 + 1);
+    enemyQ[6] = max(0, min(maxEnemiesPerType, (level-50))/2 + 1);
 
     for (int i = 0; i < enemies.size(); i++){
         for (int j = 0; j < enemyQ[i]; j++) {
@@ -57,9 +57,6 @@ bool Level::isFreePositionToDraw(int x, int y) {
         if (w.getX() == x && w.getY() == y) return false; 
     }
     for (Door w : doorVector) {
-        if (w.getX() == x && w.getY() == y) return false; 
-    }
-    for (Enemy w : enemyVector) {
         if (w.getX() == x && w.getY() == y) return false; 
     }
     return isValidPosition(x, y);

@@ -21,7 +21,7 @@ class Level {
         vector<vector<int>> structure;
         vector<Wall> wallVector;
         vector<Door> doorVector;
-        vector<Wall> moneyVector;
+        vector<MoneyBonus> moneyVector;
         int center_y;
         int center_x;
         Player * player;

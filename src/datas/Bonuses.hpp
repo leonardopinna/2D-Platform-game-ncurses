@@ -1,8 +1,8 @@
 #ifndef DATA_BONUSES_HPP
 #define DATA_BONUSES_HPP
 
-#include "../elements/Wall.hpp"
+#include "../elements/MoneyBonus.hpp"
 
-extern Wall moneyWall;
+extern MoneyBonus moneyWall;
 
 #endif
