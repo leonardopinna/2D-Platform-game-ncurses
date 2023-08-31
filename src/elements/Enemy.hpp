@@ -4,9 +4,6 @@
 #include "Shooter.hpp"
 #include "Collectible.hpp"
 
-#include "Bullet.hpp"
-#include "../Parameters.hpp"
-
 class Enemy : public Shooter, public Collectible {
     private: 
         int shootProb;

@@ -1,7 +1,7 @@
 #ifndef PLAYER_MANAGER_HPP
 #define PLAYER_MANAGER_HPP
 
-#include "Data.hpp"
+#include "../datas/PlayerWeapons.hpp"
 
 class PlayerManager {
     private:

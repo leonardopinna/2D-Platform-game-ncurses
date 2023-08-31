@@ -4,21 +4,34 @@ using namespace std;
 
 Game::Game() {
     playerManager = new PlayerManager();
-    // marketManager = new MarketManager();
-    win = newwin(HEIGHT, WIDTH, 0, 0);
+    
+    mainMenu = new Menu(
+        titleMainMenu,
+        mainMenuItems,
+        mainMenuLinks,
+        messageMainMenu, 
+        playerManager
+        ); 
 
-    char* marketItems[] = {
-        "Aumenta Vita Max",
-    };
+    homeMenu = new Menu(titleHome,
+        homeItems,
+        homeLinks,
+        messageHomeMenu,
+        playerManager
+        ); 
 
-    levelManager = new LevelManager(win, playerManager);
-    mainMenu = new MainMenu(mainMenuItems, numMainMenuItems); 
-    homeMenu = new HomeMenu(homeItems, numHomeItems, playerManager); 
-    marketMenu = new MarketMenu(marketItems, playerWeapons.size() + 2, playerManager); 
-    gameOverMenu = new GameOverMenu(gameOverItems, numGameOverItems); 
-
+    gameOverMenu = new Menu(
+        titleGameOver,
+        gameOverItems,
+        gameOverLinks, 
+        "", 
+        playerManager); 
+    
+    levelManager = new LevelManager(playerManager);
+    
+    marketMenu = new MarketMenu(titleMarket, errorMarket, playerManager); 
+    
     currentState = GameState::MainMenu;
-       
 };
 
 void Game::run() {
@@ -30,25 +43,24 @@ void Game::run() {
 
         switch (currentState) {
             case GameState::MainMenu:
-                currentState = mainMenu->run(currentState, 0, playerManager->getMoney(), playerManager->getMaxLife(), playerManager->getWeapon()->getName());
+                currentState = mainMenu->run(currentState);
                 break;
 
             case GameState::Market:
-                currentState = marketMenu->run(currentState, statsDistance,  playerManager->getMoney(), playerManager->getMaxLife(), playerManager->getWeapon()->getName());
+                currentState = marketMenu->run(currentState);
                 break;
 
             case GameState::Home:
-                currentState = homeMenu->run(currentState, statsDistance, playerManager->getMoney(), playerManager->getMaxLife(), playerManager->getWeapon()->getName()); 
+                currentState = homeMenu->run(currentState); 
                 break;
 
             case GameState::Playing:
-                currentState = levelManager->run(currentState, statsDistance, playerManager->getMoney(), playerManager->getMaxLife(), playerManager->getWeapon()->getName());
-                levelManager->draw(win);   
+                currentState = levelManager->run(currentState, win);
                 break;
 
             case GameState::GameOver:
                 levelManager->gameStarted = false; 
-                currentState = gameOverMenu->run(currentState, statsDistance, playerManager->getMoney(), playerManager->getMaxLife(), playerManager->getWeapon()->getName()); 
+                currentState = gameOverMenu->run(currentState); 
                 break;
             case GameState::LoadGame:
                 this->loadGame();
@@ -63,26 +75,23 @@ void Game::run() {
             default:
                 break;
         } 
-
-        // DEBUGGING PRINTING
-        mvprintw(HEIGHT + 8, 1, "Game started: %d", levelManager->gameStarted);
-        mvprintw(HEIGHT + 9, 1, "LevelVectorSize: %d", levelManager->levelVector.size());
-         
+        
+        // Refresh windows
         wrefresh(win);
         refresh();
 
+        // Frame-rate
         napms(1000/30);
     }
-
+    
     endwin();
-
 }
 
 void Game::loadGame(){
     ifstream inputFile;
     inputFile.open("saveFile.txt");
     if (!inputFile) {
-        mainMenu->setLoadMessageTimer(100);
+        mainMenu->setTimer(messageTime);
         currentState = GameState::MainMenu;
     } else {
         string line;
@@ -114,17 +123,13 @@ void Game::saveGame(){
         outputFile << playerWeapons[i].isBought() << ":" << playerWeapons[i].isEquipped() << endl;
     }
     outputFile.close();
-    homeMenu->setSaveMessageTimer(100);
-
+    homeMenu->setTimer(messageTime);
     currentState = GameState::Home;
 };
 
 void Game::stopGame() {
     running = false;
 }
-
-// TO DO: METTERE IN LEVEL CLASS
-
 
 void Game::initilizeScreen() {
     initscr();
@@ -133,11 +138,8 @@ void Game::initilizeScreen() {
     noecho();
     keypad(stdscr, true);
     nodelay(stdscr, true);
-
     this->win = newwin(HEIGHT, WIDTH, 0, 0);
-
     keypad(win, true);
-
     running = true;
 };
 

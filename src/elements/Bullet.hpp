@@ -2,10 +2,13 @@
 #define BULLET_HPP
 
 #include "Movable.hpp"
+#include <string>
+
+using namespace std; 
 
 class Bullet : public Movable {
     private: 
-        char * name;
+        string name;
         double damage;
         int maxDistance;
         int cost;
@@ -13,10 +16,10 @@ class Bullet : public Movable {
         bool equipped; 
 
     public:
-        Bullet(char* n, char s, double d, int m, bool b, int c, bool eq);
+        Bullet(string n, char s, double d, int m, bool b, int c, bool eq);
 
         // getters
-        char * getName();                
+        string getName();                
         int getCost();              
         int getDamage();
         int getMaxDistance();        

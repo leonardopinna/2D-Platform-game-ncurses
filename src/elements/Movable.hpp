@@ -2,10 +2,7 @@
 #define Movable_HPP
 
 #include "Element.hpp"
-
-enum class Direction {
-    UP, DOWN, LEFT, RIGHT,
-};
+#include "../enums/Direction.hpp"
 
 class Movable : public Element {
     private: 

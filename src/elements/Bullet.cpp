@@ -1,6 +1,6 @@
 #include "Bullet.hpp"
 
-Bullet::Bullet(char* n, char s, double d, int m, bool b, int c, bool eq) :
+Bullet::Bullet(string n, char s, double d, int m, bool b, int c, bool eq) :
     name(n),
     Movable(s, Direction::RIGHT),
     damage(d),
@@ -11,7 +11,7 @@ Bullet::Bullet(char* n, char s, double d, int m, bool b, int c, bool eq) :
 
 // getters
         
-char* Bullet::getName() {
+string Bullet::getName() {
     return this->name;
 };
 int Bullet::getCost() {

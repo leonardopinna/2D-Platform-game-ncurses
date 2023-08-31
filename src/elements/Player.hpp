@@ -1,10 +1,7 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include "Movable.hpp"
-#include "Destructible.hpp"
-#include "../Data.hpp"
-#include "../Parameters.hpp"
+#include "Shooter.hpp"
 
 class Player : public Shooter {
     public: 

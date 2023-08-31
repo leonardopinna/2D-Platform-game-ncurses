@@ -3,31 +3,30 @@
 
 #include <ncurses.h>
 #include <fstream>
-#include <vector>
 
-#include "PlayerManager.hpp"
-#include "menus/MainMenu.hpp"
-#include "menus/HomeMenu.hpp"
+#include "controllers/PlayerManager.hpp"
+
+#include "menus/Menu.hpp"
 #include "menus/MarketMenu.hpp"
 #include "menus/LevelsManager.hpp"
-#include "menus/GameOverMenu.hpp"
-#include "gameElements/Player.hpp"
-#include "gameElements/Level.hpp"
 #include "menus/MenuItems.hpp"
-#include "Parameters.hpp"
 
-using namespace std;
+#include "datas/Parameters.hpp"
 
 class Game {
 
-    public: 
-        PlayerManager * playerManager;
-        LevelManager * levelManager;
-        MainMenu * mainMenu;
-        HomeMenu * homeMenu;
-        MarketMenu * marketMenu; 
-        GameOverMenu * gameOverMenu; 
+    private: 
 
+        PlayerManager * playerManager;
+        
+        LevelManager * levelManager;
+
+        Menu * mainMenu;
+        Menu * homeMenu;
+        Menu * gameOverMenu;
+
+        MarketMenu * marketMenu; 
+        
         WINDOW * win;
 
     public: 

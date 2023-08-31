@@ -3,9 +3,7 @@
 
 #include "Movable.hpp"
 #include "Destructible.hpp"
-
 #include "Bullet.hpp"
-#include "../Parameters.hpp"
 
 class Shooter : public Destructible, public Movable {
     private: 

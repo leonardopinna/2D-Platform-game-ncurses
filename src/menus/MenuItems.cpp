@@ -1,23 +1,53 @@
 #include "MenuItems.hpp"
 
-char* mainMenuItems[] = {
+// Main menu
+string titleMainMenu = "WARRIOR GAME by Leonardo Pinna";
+string messageMainMenu = "NESSUNA PARTITA SALVATA!"; 
+
+vector<string> mainMenuItems = {
     "Nuovo Gioco",
     "Carica Partita",
     "Esci"
 };
-char* gameOverItems[] = {
-    "Nuova Partita",
-    "Menu principale", 
-    "Esci"
+
+vector<GameState> mainMenuLinks = {
+    GameState::Home,
+    GameState::LoadGame, 
+    GameState::ExitGame
 };
-char* homeItems[] = {
+
+// Home menu
+string titleHome = "BENVENUTO! INIZIA UNA PARTITA O VAI AL NEGOZIO!";
+string messageHomeMenu = "PARTITA SALVATA!";
+vector<string> homeItems = {
     "Nuova Partita",
     "Negozio", 
     "Salva Partita",
     "Esci"
 };
 
-int numMainMenuItems = sizeof(mainMenuItems) / sizeof(mainMenuItems[0]);
-int numGameOverItems = sizeof(gameOverItems) / sizeof(gameOverItems[0]);
-int numHomeItems = sizeof(homeItems) / sizeof(homeItems[0]);
+vector<GameState> homeLinks = {
+    GameState::Playing,
+    GameState::Market,
+    GameState::SaveGame, 
+    GameState::MainMenu
+};
+
+// GameOver menu
+string titleGameOver = "GAME OVER: HAI PERSO!";
+vector<string> gameOverItems = {
+    "Nuova Partita",
+    "Menu principale", 
+};
+
+vector<GameState> gameOverLinks = {
+    GameState::Playing,
+    GameState::Home, 
+};
+
+// Market menu
+string titleMarket = "COMPRA ARMI O VITA";
+string errorMarket = "SOLDI INSUFFICIENTI!";
+
+
 

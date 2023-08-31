@@ -1,26 +1,18 @@
-#ifndef MAIN_MENU_HPP
-#define MAIN_MENU_HPP
+#include "MainMenu.hpp" 
 
-#include "Menu.hpp"
-
-class MainMenu : public Menu {
-    private: 
-        int loadMessageTimer;
-
-    public:  
-        MainMenu(char* menu[], int n) : Menu(menu, n) {
+        MainMenu::MainMenu(char* menu[], int n) : Menu(menu, n) {
             this->loadMessageTimer = 0; 
         };
 
-        int getLoadMessageTimer() {
+        int MainMenu::getLoadMessageTimer() {
             return this->loadMessageTimer;
         }
 
-        void setLoadMessageTimer(int time) {
+        void MainMenu::setLoadMessageTimer(int time) {
             this->loadMessageTimer = time;
         }
 
-        void handleInput() override {
+        void MainMenu::handleInput() {
             switch (getch()) {
                 case 'w':
                     selectUp();
@@ -46,9 +38,9 @@ class MainMenu : public Menu {
             }
         };
 
-        void update() override {};
+        void MainMenu::update() {};
 
-        void render(int dist, int money, int life, char* name) override {
+        void MainMenu::render(int dist, int money, int life, char* name) {
             clear();
             mvprintw(1, 1, "WARRIOR GAME by Leonardo Pinna");
             renderMenu();
@@ -58,7 +50,3 @@ class MainMenu : public Menu {
                 loadMessageTimer--;
             }   
         };
-
-};
-
-#endif
