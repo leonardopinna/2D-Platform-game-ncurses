@@ -1,10 +1,6 @@
 #ifndef LEVEL_HPP
 #define LEVEL_HPP 
 
-#include "../datas/Parameters.hpp"
-
-#include "../elements/Player.hpp"
-
 #include "../datas/EnemyList.hpp"
 #include "../datas/Walls.hpp"
 #include "../datas/Doors.hpp"
@@ -12,19 +8,14 @@
 
 class Level {
     public:
-        int numEnemies;
-        int numWalls;
-        int numDollars;
         vector<Bullet> playerBulletVector; 
         vector<Bullet> enemyBulletVector; 
         vector<Enemy> enemyVector;
         vector<vector<int>> structure;
         vector<Wall> wallVector;
-        vector<Door> doorVector;
+        vector<Element> doorVector;
         vector<MoneyBonus> moneyVector;
-        int center_y;
-        int center_x;
-        Player * player;
+        Shooter * player;
         
         Level(int level, vector<vector<int>> s);
 

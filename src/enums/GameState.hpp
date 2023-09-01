@@ -4,7 +4,6 @@
 enum class GameState {
     MainMenu,
     Market,
-    Purchasing,
     Home,
     Playing,
     GameOver, 

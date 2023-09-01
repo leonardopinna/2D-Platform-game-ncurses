@@ -23,9 +23,9 @@ class Element {
         void setSymbol(char s);   
 
         // bool 
-        bool outOfBounds(Element t);
+        bool outOfBounds();
 
-        bool collision(Element a, Element b);
+        bool collision(Element e);
 };
 
 #endif

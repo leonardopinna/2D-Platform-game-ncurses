@@ -9,7 +9,7 @@ class Shooter : public Destructible, public Movable {
     private: 
         Bullet * bullet;
 
-    public: 
+    public:
         Shooter(char ch, int l, Direction d, Bullet * b);
 
         // getters

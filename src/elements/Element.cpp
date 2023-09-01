@@ -24,10 +24,10 @@ void Element::setSymbol(char s) {
     this->symbol = s;
 };
 
-bool Element::outOfBounds(Element t) {
-    return t.getX() < 1 || t.getY() < 1 || t.getX() > WIDTH - 2 || t.getY() > HEIGHT - 2;
+bool Element::outOfBounds() {
+    return this->x < 1 || this->y < 1 || this->x > WIDTH - 2 || this->y > HEIGHT - 2;
 };
 
-bool Element::collision(Element a, Element b) {
-    return a.getX() == b.getX() && a.getY() == b.getY();
+bool Element::collision(Element e) {
+    return this->x == e.getX() && this->y == e.getY();
 }

@@ -75,7 +75,7 @@ void MarketMenu::render() {
             }
         }
         attroff(A_REVERSE);
-
+        renderPrompt(playerWeapons.size() + 5, 1);
         mvprintw(2, statsDistance, "MONETE    : %d", getPlayerManager()->getMoney());
         mvprintw(4, statsDistance, "VITA MAX  : %d", getPlayerManager()->getMaxLife());
         mvprintw(6, statsDistance, "ARMA      : %s", getPlayerManager()->getWeapon()->getName().c_str());

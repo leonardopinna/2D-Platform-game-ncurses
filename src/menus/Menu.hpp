@@ -20,8 +20,6 @@ class Menu {
         vector<string> menu;
         vector<GameState> link;
 
-        int dist;
-
         int timer; 
         string message; 
         string title; 

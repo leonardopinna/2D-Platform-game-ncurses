@@ -9,14 +9,14 @@ using namespace std;
 class Bullet : public Movable {
     private: 
         string name;
-        double damage;
+        int damage;
         int maxDistance;
         int cost;
         bool bought;
         bool equipped; 
 
     public:
-        Bullet(string n, char s, double d, int m, bool b, int c, bool eq);
+        Bullet(string n, char s, int d, int m, bool b, int c, bool eq);
 
         // getters
         string getName();                

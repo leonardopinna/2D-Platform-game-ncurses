@@ -26,17 +26,16 @@ class Game {
         
         WINDOW * win;
 
-    public: 
-
         GameState currentState; 
 
-        bool running; 
+        bool running;
+
+    public:  
 
         Game();
 
         void loadGame();
         void saveGame();
-
         void stopGame(); 
 
         void run();

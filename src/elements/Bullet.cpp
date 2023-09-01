@@ -1,6 +1,6 @@
 #include "Bullet.hpp"
 
-Bullet::Bullet(string n, char s, double d, int m, bool b, int c, bool eq) :
+Bullet::Bullet(string n, char s, int d, int m, bool b, int c, bool eq) :
     name(n),
     Movable(s, Direction::RIGHT),
     damage(d),

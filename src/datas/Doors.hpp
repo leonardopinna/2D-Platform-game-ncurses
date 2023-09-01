@@ -1,8 +1,8 @@
 #ifndef DATA_DOORS_HPP
 #define DATA_DOORS_HPP
 
-#include "../elements/Door.hpp"
+#include "../elements/Element.hpp"
 
-extern Door door;
+extern Element door;
 
 #endif

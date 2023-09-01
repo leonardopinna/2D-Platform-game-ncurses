@@ -1,7 +1,7 @@
 #include "MenuItems.hpp"
 
 // Main menu
-string titleMainMenu = "WARRIOR GAME by Leonardo Pinna";
+string titleMainMenu = "nWARRIOR GAME by Leonardo Pinna";
 string messageMainMenu = "NESSUNA PARTITA SALVATA!"; 
 
 vector<string> mainMenuItems = {

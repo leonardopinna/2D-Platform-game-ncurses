@@ -56,7 +56,7 @@ bool Level::isFreePositionToDraw(int x, int y) {
     for (Wall w : wallVector) {
         if (w.getX() == x && w.getY() == y) return false; 
     }
-    for (Door w : doorVector) {
+    for (Element w : doorVector) {
         if (w.getX() == x && w.getY() == y) return false; 
     }
     return isValidPosition(x, y);

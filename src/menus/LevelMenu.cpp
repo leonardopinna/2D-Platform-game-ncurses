@@ -1,7 +1,7 @@
 #include "LevelMenu.hpp"
 
 LevelMenu:: LevelMenu(PlayerManager * playerManager) : Menu("", {}, {}, "", playerManager) {
-    this->player = new Player('&', playerManager->getMaxLife(), Direction::RIGHT, playerManager->getWeapon()); 
+    this->player = new Shooter('&', playerManager->getMaxLife(), Direction::RIGHT, playerManager->getWeapon()); 
     this->gameStarted = false; 
 }
 
@@ -90,7 +90,7 @@ void LevelMenu::update() {
     while (deltaTime >= gameSpeed) {
         for (auto it = currentLevel->playerBulletVector.begin() ; it != currentLevel->playerBulletVector.end(); ) {
             it->move();
-            if (outOfBounds(*it) || it->getMaxDistance()==0) {
+            if (it->outOfBounds() || it->getMaxDistance()==0) {
                 it = currentLevel->playerBulletVector.erase(it);
             } else {
                 ++it;
@@ -98,7 +98,7 @@ void LevelMenu::update() {
         }
         for (auto it = currentLevel->enemyBulletVector.begin() ; it != currentLevel->enemyBulletVector.end(); ) {
             it->move();
-            if (outOfBounds(*it) || it->getMaxDistance()==0) {
+            if (it->outOfBounds() || it->getMaxDistance()==0) {
                 it = currentLevel->enemyBulletVector.erase(it);
             } else {
                 ++it;
@@ -132,7 +132,7 @@ void LevelMenu::update() {
     // Enemy bullet - Player collision
     for (auto b = currentLevel->enemyBulletVector.begin() ; b != currentLevel->enemyBulletVector.end(); ) {
         bool collided = false;
-        if (collision(*b, *player)) {
+        if (b->collision(*player)) {
             player->reduceLife(b->getDamage());
             collided = true;
         }
@@ -145,7 +145,7 @@ void LevelMenu::update() {
 
     // Enemy - Player collision
     for (auto b = currentLevel->enemyVector.begin() ; b != currentLevel->enemyVector.end(); b++) {
-        if (collision(*b, *player)) {
+        if (b->collision(*player)) {
             player->reduceLife(b->getBullet()->getDamage());                         
         }
     }
@@ -153,7 +153,7 @@ void LevelMenu::update() {
     // Player - Money Bonus collision
     for (auto b = currentLevel->moneyVector.begin() ; b != currentLevel->moneyVector.end();) {
         bool collided = false;
-        if (collision(*b, *player)) {
+        if (b->collision(*player)) {
             getPlayerManager()->addMoney(moneyBonus);
             collided = true;                        
         }
@@ -170,7 +170,7 @@ void LevelMenu::update() {
         bool collided = false;
         for (auto enemyIt = currentLevel->enemyVector.begin() ; enemyIt != currentLevel->enemyVector.end(); ) {
             // collision check
-            if (collision(*b, *enemyIt)) {
+            if (b->collision(*enemyIt)) {
                 enemyIt->reduceLife(b->getDamage());
                 // if life to zero, delete enemy
                 if (enemyIt->getLife() <= 0) {
@@ -194,7 +194,7 @@ void LevelMenu::update() {
         bool collided = false;
         for (auto wallIt = currentLevel->wallVector.begin() ; wallIt != currentLevel->wallVector.end(); ) {
             // collision check
-            if (collision(*b, *wallIt)) {
+            if (b->collision(*wallIt)) {
                 wallIt->reduceLife(b->getDamage());
                 // if life to zero, delete enemy
                 if (wallIt->getLife() <= 0) {
@@ -218,7 +218,7 @@ void LevelMenu::update() {
     for (auto b = currentLevel->enemyBulletVector.begin() ; b != currentLevel->enemyBulletVector.end(); ) {
         bool collided = false;
         for (auto wallIt = currentLevel->wallVector.begin() ; wallIt != currentLevel->wallVector.end(); ) {
-            if (collision(*b, *wallIt)) { 
+            if (b->collision(*wallIt)) { 
                 collided = true;
                 break;
             } else {
@@ -233,7 +233,7 @@ void LevelMenu::update() {
     }
     
     // Change Level trigger
-    if (collision(*player, currentLevel->doorVector[0])) {
+    if (player->collision(currentLevel->doorVector[0])) {
         
         if (level != 0) {
             level--;
@@ -244,7 +244,7 @@ void LevelMenu::update() {
         }
     }
 
-    if (collision(*player, currentLevel->doorVector[1])) {
+    if (player->collision(currentLevel->doorVector[1])) {
         level++; startingLevel++;
         if (level == levelVector.size()) {
             levelVector.push_back(new Level(startingLevel + 1, availableLevels[rand() % availableLevels.size()]));
@@ -274,7 +274,7 @@ void LevelMenu::draw(WINDOW * wdw) {
         for (MoneyBonus w : currentLevel->moneyVector) {
             mvwaddch(wdw, w.getY(), w.getX(), w.getSymbol());
         }
-        for (Door d : currentLevel->doorVector) {
+        for (Element d : currentLevel->doorVector) {
             mvwaddch(wdw, d.getY(), d.getX(), d.getSymbol());
         }
         for (Enemy e : currentLevel->enemyVector) {

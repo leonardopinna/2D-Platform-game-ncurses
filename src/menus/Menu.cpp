@@ -77,7 +77,7 @@ void Menu::handleInput() {
     case 's':
         selectDown();
         break;
-    case 'l': // Enter key
+    case 'l':
         selectButton(); 
     default: 
         break;
@@ -110,20 +110,3 @@ void Menu::renderPrompt(int y, int x) {
     mvprintw(y + 1, x, "'s' : Muovi verso il basso");
     mvprintw(y + 2, x, "'l' : Seleziona");
 };
-
-// void Menu::renderPlayPrompt(int y, int x) {
-//     mvprintw(y + 0, x, "'w' : Muovi verso l'alto");
-//     mvprintw(y + 1, x, "'s' : Muovi verso il basso");
-//     mvprintw(y + 2, x, "'a' : Muovi verso sinistra");
-//     mvprintw(y + 3, x, "'d' : Muovi verso destra");
-//     mvprintw(y + 4, x, "'l' : Spara");
-//     mvprintw(y + 5, x, "'q' : Termina partita");
-// }
-
-// void Menu::renderStats() {};
-
-// void Menu::renderGameStats(int dist, int money, int life, string name) {
-//     mvprintw(2, dist, "MONETE    : %d", money);
-//     mvprintw(4, dist, "VITA      : %d", life);
-//     mvprintw(6, dist, "ARMA      : %s", name);
-// }
