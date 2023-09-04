@@ -14,6 +14,9 @@ int PlayerManager::getMaxLife() {
 Bullet * PlayerManager::getWeapon() {
     return this->weapon;
 }
+int PlayerManager::getRecord() {
+    return this->record; 
+} 
 
 // setters
 void PlayerManager::setMoney(int amount) {
@@ -26,6 +29,9 @@ void PlayerManager::setWeapon(Bullet * bullet) {
     this->weapon->setEquipped(false);
     this->weapon = bullet; 
     this->weapon->setEquipped(true);
+}
+void PlayerManager::setRecord(int r) {
+    this->record = r; 
 }
 
 // actions

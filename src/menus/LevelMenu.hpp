@@ -19,6 +19,8 @@ class LevelMenu : public Menu {
         Level* currentLevel;
         int level;
         int startingLevel; 
+
+        int points; 
         
         Shooter * player; 
 

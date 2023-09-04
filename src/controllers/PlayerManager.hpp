@@ -8,6 +8,7 @@ class PlayerManager {
         int money;
         int maxLife;
         Bullet * weapon; 
+        int record; 
 
     public: 
         PlayerManager(); 
@@ -15,12 +16,14 @@ class PlayerManager {
         // getters
         int getMoney(); 
         int getMaxLife();
-        Bullet * getWeapon();  
+        Bullet * getWeapon(); 
+        int getRecord();  
 
         // setters
         void setMoney(int amount);
         void setMaxLife(int amount);
-        void setWeapon(Bullet * bullet); 
+        void setWeapon(Bullet * bullet);
+        void setRecord(int r); 
 
         // actions
         void addMoney(int amount); 

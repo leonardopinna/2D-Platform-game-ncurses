@@ -106,7 +106,9 @@ void Game::loadGame(){
                 playerManager->setWeapon(&playerWeapons[i]);   
             };
             i++;
-        }   
+        }
+        getline(inputFile, line);
+        playerManager->setRecord(stoi(line));
         currentState = GameState::Home; 
     }
     inputFile.close();
@@ -120,6 +122,7 @@ void Game::saveGame(){
     for (int i = 0; i < playerWeapons.size(); i++) {
         outputFile << playerWeapons[i].isBought() << ":" << playerWeapons[i].isEquipped() << endl;
     }
+    outputFile << playerManager->getRecord() << endl;
     outputFile.close();
     homeMenu->setTimer(messageTime);
     currentState = GameState::Home;

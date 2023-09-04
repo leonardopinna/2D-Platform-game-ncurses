@@ -12,6 +12,8 @@ void LevelMenu::initializeGame() {
     levelVector.push_back(new Level(startingLevel + 1, availableLevels[rand() % availableLevels.size()]));
         
     currentLevel = levelVector[0];
+
+    points = 0; 
         
     player->setLife(getPlayerManager()->getMaxLife());
     player->setBullet(getPlayerManager()->getWeapon());
@@ -41,6 +43,8 @@ void LevelMenu::gameOver() {
     levelVector.clear();
 
     gameStarted = false; 
+
+    if (points > getPlayerManager()->getRecord()) getPlayerManager()->setRecord(points); 
 
     setState(GameState::GameOver);
 }; 
@@ -176,6 +180,7 @@ void LevelMenu::update() {
                 if (enemyIt->getLife() <= 0) {
                     enemyIt = currentLevel->enemyVector.erase(enemyIt);
                     getPlayerManager()->addMoney(enemyIt->getValue());
+                    points += enemyIt->getValue();
                 } 
                 collided = true;
                 break;
@@ -288,8 +293,11 @@ void LevelMenu::draw(WINDOW * wdw) {
         mvprintw(14, statsDistance, "'d' : Muovi verso destra");
         mvprintw(15, statsDistance, "'l' : Spara");
         mvprintw(16, statsDistance, "'q' : Termina partita");
-        mvprintw(2, statsDistance, "MONETE    : %d", this->getPlayerManager()->getMoney());
-        mvprintw(4, statsDistance, "VITA      : %d / %d", player->getLife(), this->getPlayerManager()->getMaxLife());
-        mvprintw(6, statsDistance, "ARMA      : %s", this->getPlayerManager()->getWeapon()->getName().c_str());
-        mvprintw(8, statsDistance, "LIVELLO   : %d / %d", this->level + 1, this->levelVector.size());
+
+        mvprintw(0, statsDistance, "RECORD    : %d", this->getPlayerManager()->getRecord());
+        mvprintw(1, statsDistance, "PUNTI     : %d", this->points);
+        mvprintw(3, statsDistance, "MONETE    : %d", this->getPlayerManager()->getMoney());
+        mvprintw(5, statsDistance, "VITA      : %d / %d", player->getLife(), this->getPlayerManager()->getMaxLife());
+        mvprintw(7, statsDistance, "ARMA      : %s", this->getPlayerManager()->getWeapon()->getName().c_str());
+        mvprintw(9, statsDistance, "LIVELLO   : %d / %d", this->level + 1, this->levelVector.size());
 }
