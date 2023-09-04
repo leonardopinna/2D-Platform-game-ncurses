@@ -9,6 +9,8 @@ void LevelMenu::initializeGame() {
 
     this->level = 0;
     this->startingLevel = getPlayerManager()->getMaxLife() / startingLevelIncreaseDelta;
+
+    levelVector.clear(); 
     levelVector.push_back(new Level(startingLevel + 1, availableLevels[rand() % availableLevels.size()]));
         
     currentLevel = levelVector[0];
