@@ -183,6 +183,7 @@ void LevelMenu::update() {
                     enemyIt = currentLevel->enemyVector.erase(enemyIt);
                     getPlayerManager()->addMoney(enemyIt->getValue());
                     points += enemyIt->getValue();
+                    if (points > getPlayerManager()->getRecord()) getPlayerManager()->setRecord(points); 
                 } 
                 collided = true;
                 break;
