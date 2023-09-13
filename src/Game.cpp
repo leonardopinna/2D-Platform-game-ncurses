@@ -36,8 +36,8 @@ void Game::run() {
     initilizeScreen();
     while (running) {
 
-        clear(); 
-        wclear(win); 
+        erase(); 
+        werase(win); 
 
         switch (currentState) {
             case GameState::MainMenu:
@@ -79,7 +79,7 @@ void Game::run() {
         refresh();
 
         // Frame-rate
-        napms(1000/30);
+        napms(1000/20);
     }
     
     endwin();
