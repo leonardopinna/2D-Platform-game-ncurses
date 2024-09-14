@@ -7,6 +7,6 @@ You are a Hero that has to defeat encountered enemies on every floor, to earn co
 
 To launch the game on Unix-based systems, run 
 ```(bash)
-./run.sh
+./run.bash
 ```
 when the pwd is the folder of this project.
